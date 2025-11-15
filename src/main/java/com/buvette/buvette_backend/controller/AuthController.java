@@ -1,7 +1,5 @@
 package com.buvette.buvette_backend.controller;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +9,6 @@ import com.buvette.buvette_backend.services.UserAuthService;
 
 import jakarta.validation.Valid;
 
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 
 @RestController
@@ -24,14 +21,8 @@ public class AuthController {
     private UserAuthService service;
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult result) {
-        if (result.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            result.getFieldErrors().forEach(error -> {
-                errors.put(error.getField(), error.getDefaultMessage());
-            });
-            return ResponseEntity.badRequest().body(errors);
-        }
+    public ResponseEntity<?> registerUser(@Valid @RequestBody User user) {
+      
         service.save(user);
         return ResponseEntity.ok("Utilisateur créé !");
     }

@@ -18,7 +18,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())  // 🔥 Désactive CSRF pour POST depuis le frontend
+            .csrf(csrf -> csrf.disable())  // Désactive CSRF pour POST depuis le frontend
             .cors(Customizer.withDefaults())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll() // login + register autorisés
