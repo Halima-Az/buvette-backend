@@ -2,22 +2,37 @@ package com.buvette.buvette_backend.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import com.buvette.buvette_backend.model.User;
-import com.buvette.buvette_backend.services.UserService;
+import com.buvette.buvette_backend.services.UserAuthService;
+
+import jakarta.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "http://localhost:5173")
+@Validated
 public class AuthController {
+
     @Autowired
-    private UserService service;
+    private UserAuthService service;
 
     @PostMapping("/register")
-    public void addUser(@RequestBody User user) {
-        service.engister(user);
+    public ResponseEntity<?> registerUser(@Valid @RequestBody User user) {
+      
+        service.save(user);
+        return ResponseEntity.ok("Utilisateur créé !");
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody User user) {
+        if (service.authenticate(user.getEmail(), user.getPassword())) {
+            return ResponseEntity.ok("Login success");
+        }
+        return ResponseEntity.status(401).body("Invalid credentials");
+    }
+
 }
