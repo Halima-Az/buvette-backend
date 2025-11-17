@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Classic Burger",
+    "price": 12.75,
+    "rating": 4.7,
+    "image": "/img/buger.jpeg"
+  },
+  {
+    "name": "Cheese Burger",
+    "price": 13.5,
+    "rating": 4.6,
+    "image": "/img/Pepperoni-Pizza700x700.jpeg"
+  },
+  {
+    "name": "Bacon Burger",
+    "price": 14.2,
+    "rating": 4.8,
+    "image": "/img/perfect-basic-burger.jpg"
+  },
+  {
+    "name": "Double Cheeseburger",
+    "price": 15.99,
+    "rating": 4.5,
+    "image": "/img/buger.jpeg"
+  },
+  {
+    "name": "Veggie Burger",
+    "price": 11.50,
+    "rating": 4.2,
+    "image": "/img/Pepperoni-Pizza700x700.jpeg"
+  },
+  {
+    "name": "Spicy Chicken Burger",
+    "price": 13.75,
+    "rating": 4.3,
+    "image": "/img/perfect-basic-burger.jpg"
+  },
+  {
+    "name": "BBQ Bacon Deluxe",
+    "price": 16.50,
+    "rating": 4.9,
+    "image": "/img/buger.jpeg"
+  },
+  {
+    "name": "Mushroom Swiss Burger",
+    "price": 14.80,
+    "rating": 4.6,
+    "image": "/img/Pepperoni-Pizza700x700.jpeg"
+  },
+  {
+    "name": "Kids Burger Meal",
+    "price": 8.99,
+    "rating": 3.9,
+    "image": "/img/perfect-basic-burger.jpg"
+  },
+  {
+    "name": "The 'Everything' Burger",
+    "price": 18.25,
+    "rating": 4.7,
+    "image": "/img/buger.jpeg"
+  }
+]

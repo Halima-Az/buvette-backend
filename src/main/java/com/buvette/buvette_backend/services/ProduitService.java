@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.buvette.buvette_backend.model.Produit;
-import com.buvette.buvette_backend.repositories.ProduitRepository;
+import com.buvette.buvette_backend.repository.ProduitRepository;
 @Service
 public class ProduitService {
     private ProduitRepository repo;
