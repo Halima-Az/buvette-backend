@@ -35,9 +35,9 @@ async function init() {
     const menuData = await loadJson('menu_items.json');
 
     // Sync menu collection
-    await syncCollection(db, 'menu', menuData, 'name');
+    await syncCollection(db, 'menu_items', menuData, 'name');
 
-    console.log('Menu collection synced successfully!');
+    console.log('MenuItems collection synced successfully!');
   } catch (err) {
     console.error(err);
   } finally {
