@@ -5,7 +5,7 @@ Gestion des commandes  buvette
 pour gérer l'authentification des applications on utilise spring security après l'istalation des dependances nécessiares 
 - Le fichier config/SecurityConfig.java repésente le chef de sécurity
 - La méthode FilterChain qui permet de donner les ordres aux gardes de sécurité
-- http.csrf(csrf->scrf.disable) : car on travail avec API axois et non pas par des formulaires HTML classique
+- http.csrf(csrf->scrf.disable) : car on travail avec API axios et non pas par des formulaires HTML classique
 - cors(Customizer.withDefaults()) va vérifier les régles de Cors (laisser passer les requetes venant de vue)
 - permitAll()=> tous autorisées
 - authenticated()=> nécessite Authentification
