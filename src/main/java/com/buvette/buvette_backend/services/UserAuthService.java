@@ -24,8 +24,10 @@ public class UserAuthService {
         return repo.save(user);
     }
 
-    public boolean authenticate(String email,String pass){
-        User user=repo.findByEmail(email);
-        return user != null && passwordEncoder.matches(pass, user.getPassword());
-    }
+    public boolean authenticate(String email, String pass) {
+    return repo.findByEmail(email)
+            .map(user -> passwordEncoder.matches(pass, user.getPassword()))
+            .orElse(false);
+}
+
 }

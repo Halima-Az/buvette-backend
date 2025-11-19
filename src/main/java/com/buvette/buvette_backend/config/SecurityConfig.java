@@ -29,6 +29,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/menu").permitAll() // <-- allow menu for Vue
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/favorites/**").permitAll()
+                        .requestMatchers("/cart/**").authenticated()
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin(form -> form.disable())

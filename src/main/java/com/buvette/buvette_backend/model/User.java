@@ -1,5 +1,8 @@
 package com.buvette.buvette_backend.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,6 +21,8 @@ public class User {
     @Size(min=8,message="passort must at least 8 characters")
     private String password;
     private String role = "CLIENT"; // par défaut
+
+    private List<CartItem> cart = new ArrayList<>();
 
     public User() {}
 
@@ -41,5 +46,10 @@ public class User {
 
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
+
+    public List<CartItem> getCart() { return cart; }
+
+    public void setCart(List<CartItem> cart) { this.cart = cart; }
+
 
 }
