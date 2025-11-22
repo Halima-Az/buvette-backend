@@ -18,4 +18,7 @@ public class UserService {
          repo.save(u);
 
     }
+    public User findByEmail(String email){
+        return repo.findByEmail(email);
+    }
 }
