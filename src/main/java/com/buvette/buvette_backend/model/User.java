@@ -12,16 +12,26 @@ import jakarta.validation.constraints.*;
 public class User {
     @Id
     private String id;
-    @NotBlank(message="username required")
+    @NotBlank(message = "username required")
     private String username;
-    @Email(message="invalide email")
-        @NotBlank(message="email required")
+    @Email(message = "invalide email")
+    @NotBlank(message = "Email required")
     private String email;
-    @NotBlank(message="password required")
-    @Size(min=8,message="passort must at least 8 characters")
+    @NotBlank(message = "password required")
+    @Size(min = 8, message = "passort must at least 8 characters")
     private String password;
     private String role = "CLIENT"; // par défaut
+    @NotNull(message = "You must accept the terms & conditions")
+    private Boolean agreeTerms;
+    @NotBlank(message = "First name required")
+    private String fname;
 
+    @NotBlank(message = "Last name required")
+    private String lname;
+    private String dob;
+
+    public User() {
+    }
     private List<CartItem> cart = new ArrayList<>();
 
     public User() {}
@@ -31,22 +41,78 @@ public class User {
         this.email = email;
         this.password = password;
     }
-    
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
 
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
+    public String getId() {
+        return id;
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    public String getUsername() {
+        return username;
+    }
 
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Boolean getAgreeTerms() {
+        return agreeTerms;
+    }
+
+    public void setAgreeTerms(Boolean agreeTerms) {
+        this.agreeTerms = agreeTerms;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
     public List<CartItem> getCart() { return cart; }
 
     public void setCart(List<CartItem> cart) { this.cart = cart; }
