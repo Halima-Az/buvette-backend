@@ -1,5 +1,8 @@
 package com.buvette.buvette_backend.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -29,6 +32,9 @@ public class User {
 
     public User() {
     }
+    private List<CartItem> cart = new ArrayList<>();
+
+    public User() {}
 
     public User(String username, String email, String password) {
         this.username = username;
@@ -107,4 +113,9 @@ public class User {
     public void setDob(String dob) {
         this.dob = dob;
     }
+    public List<CartItem> getCart() { return cart; }
+
+    public void setCart(List<CartItem> cart) { this.cart = cart; }
+
+
 }
