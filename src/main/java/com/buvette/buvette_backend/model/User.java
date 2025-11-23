@@ -30,11 +30,10 @@ public class User {
     private String lname;
     private String dob;
 
-    public User() {
-    }
     private List<CartItem> cart = new ArrayList<>();
 
-    public User() {}
+    public User() {
+    }
 
     public User(String username, String email, String password) {
         this.username = username;
@@ -113,9 +112,13 @@ public class User {
     public void setDob(String dob) {
         this.dob = dob;
     }
-    public List<CartItem> getCart() { return cart; }
 
-    public void setCart(List<CartItem> cart) { this.cart = cart; }
+    public List<CartItem> getCart() {
+        return cart;
+    }
 
+    public void setCart(List<CartItem> cart) {
+        this.cart = cart;
+    }
 
 }

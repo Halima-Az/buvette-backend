@@ -19,6 +19,6 @@ public class UserService {
 
     }
     public User findByEmail(String email){
-        return repo.findByEmail(email);
+        return repo.findByEmail(email)   .orElseThrow(() -> new RuntimeException("User not found"));
     }
 }
