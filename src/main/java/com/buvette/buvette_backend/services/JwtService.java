@@ -2,6 +2,8 @@ package com.buvette.buvette_backend.services;
 
 import java.util.Date;
 import org.springframework.stereotype.Service;
+
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
@@ -26,5 +28,12 @@ public class JwtService {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+      public Claims extractClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(secret.getBytes())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 }
