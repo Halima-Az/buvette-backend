@@ -20,7 +20,7 @@ public class User {
     @NotBlank(message = "password required")
     @Size(min = 8, message = "passort must at least 8 characters")
     private String password;
-    private String role = "CLIENT"; // par défaut
+    private String role = "ROLE_CLIENT"; // par défaut
     @NotNull(message = "You must accept the terms & conditions")
     private Boolean agreeTerms;
     @NotBlank(message = "First name required")
