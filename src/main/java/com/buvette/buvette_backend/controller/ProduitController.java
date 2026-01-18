@@ -25,5 +25,4 @@ public class ProduitController {
      public Produit add(@RequestBody Produit p){
         return service.add(p);
     }
-      
 }
