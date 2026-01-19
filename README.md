@@ -36,8 +36,25 @@ pour gérer l'authentification des applications on utilise spring security aprè
 
 ### N.B Le service JWT pour créer nouveu jeton et la classe de filtre pour intércepter la requete avant atteint le controller
   
+## Organisation:
+The backend is organized by Sub-Domains and Access Levels rather than just technical layers.
 
+  config/: Security (JWT), CORS, and global configurations.
 
+  model/ & repository/: Shared data entities and database access.
+
+  features/:
+
+  .client: Endpoints for customer actions (browsing menu, placing orders).
+
+  .employee: Endpoints for staff (managing order status, inventory updates).
+
+  api/ Pathing:
+
+   /api/client/** → Restricted to ROLE_CLIENT
+
+   /api/employee/** → Restricted to ROLE_WORKER
+  
   
 
 
