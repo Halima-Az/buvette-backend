@@ -40,6 +40,10 @@ public class User {
         this.email = email;
         this.password = password;
     }
+     public User(String email, String role) {
+        this.email = email;
+        this.role = role;
+    }
 
     public String getId() {
         return id;

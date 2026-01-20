@@ -12,6 +12,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.buvette.buvette_backend.model.client.User;
+import com.buvette.buvette_backend.repository.shared.UserRepository;
 import com.buvette.buvette_backend.services.shared.JwtService;
 
 import java.io.IOException;
@@ -22,6 +24,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtService jwtService;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(
@@ -46,22 +50,19 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
             String email = jwtService.extractEmail(token);
             System.out.println("Email extrait: " + email);
-
+            User user = userRepository.findByEmail(email).orElse(null);
             if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-                UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(
-                                email,
-                                null,
-                                List.of(new SimpleGrantedAuthority("ROLE_CLIENT"))
-                        );
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                        email,
+                        null,
+                        List.of(new SimpleGrantedAuthority("ROLE_CLIENT")));
 
                 authentication.setDetails(
-                        new WebAuthenticationDetailsSource().buildDetails(request)
-                );
+                        new WebAuthenticationDetailsSource().buildDetails(request));
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                System.out.println("✅ Utilisateur authentifié avec ROLE_CLIENT");
+                System.out.println("✅ Utilisateur authentifié avec " + user.getRole());
             }
         }
 
