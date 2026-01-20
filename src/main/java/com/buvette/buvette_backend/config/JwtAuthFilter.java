@@ -1,6 +1,5 @@
 package com.buvette.buvette_backend.config;
 
-import com.buvette.buvette_backend.services.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.buvette.buvette_backend.services.shared.JwtService;
 
 import java.io.IOException;
 import java.util.List;
