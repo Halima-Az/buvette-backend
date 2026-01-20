@@ -6,13 +6,15 @@ import com.buvette.buvette_backend.model.client.User;
 import com.buvette.buvette_backend.repository.shared.UserRepository;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/client/cart")
+@PreAuthorize("hasRole('CLIENT')")
 public class CartController {
 
     private final UserRepository userRepository;

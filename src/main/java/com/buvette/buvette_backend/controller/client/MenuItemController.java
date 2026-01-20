@@ -1,6 +1,7 @@
 package com.buvette.buvette_backend.controller.client;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,24 +15,25 @@ import com.buvette.buvette_backend.repository.client.MenuItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
+@RequestMapping("/api")
 public class MenuItemController {
 
     @Autowired
     private MenuItemRepository menuItemRepository;
 
-    @GetMapping("/api/menu")
+    @GetMapping("/menu")
     public List<MenuItem> getMenu() {
         return menuItemRepository.findAll();
     }
 
-    @GetMapping("/api/categories")
+    @GetMapping("/categories")
     public List<String> getCategories() {
         return Arrays.stream(ItemCategory.values())
                     .map(Enum::name)
                     .toList();
     }
 
-    @GetMapping("/api/menu-items")
+    @GetMapping("/menu-items")
     public List<MenuItem> getMenuItems(@RequestParam(required = false) String category){
         if (category == null) {
             return menuItemRepository.findAll();
