@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.buvette.buvette_backend.model.client.User;
 import com.buvette.buvette_backend.services.shared.JwtService;
 import com.buvette.buvette_backend.services.shared.UserAuthService;
+import com.buvette.buvette_backend.services.shared.UserService;
 
 import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
@@ -20,10 +21,12 @@ public class AuthController {
 
     private final UserAuthService service;
     private final JwtService jwtService;
+    private final UserService userService;
 
-    public AuthController(UserAuthService service, JwtService jwtService) {
+    public AuthController(UserAuthService service, JwtService jwtService, UserService userService) {
         this.service = service;
         this.jwtService = jwtService;
+        this.userService = userService;
     }
 
     @PostMapping("/register")
@@ -33,17 +36,20 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-   public ResponseEntity<?> login(@RequestBody User user) {
-    if (service.authenticate(user.getEmail(), user.getPassword())) {
+    public ResponseEntity<?> login(@RequestBody User user) {
+        if (service.authenticate(user.getEmail(), user.getPassword())) {
 
-        String token = jwtService.generateToken(user.getEmail());
+            // Récupérer l'utilisateur réel depuis la DB
+            User realUser = userService.findByEmail(user.getEmail());
+            String token = jwtService.generateToken(realUser.getEmail());
 
-        return ResponseEntity.ok(Map.of(
-            "token", token
-        ));
+            return ResponseEntity.ok(Map.of(
+                    "token", token,
+                    "role", realUser.getRole() // <-- utilise le rôle réel
+            ));
+        }
+
+        return ResponseEntity.status(401).body("Invalid credentials");
     }
-
-    return ResponseEntity.status(401).body("Invalid credentials");
-}
 
 }
