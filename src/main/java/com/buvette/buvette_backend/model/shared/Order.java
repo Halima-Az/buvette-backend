@@ -1,4 +1,4 @@
-package com.buvette.buvette_backend.model.employee;
+package com.buvette.buvette_backend.model.shared;
 
 import java.time.LocalDateTime;
 import java.util.List;
