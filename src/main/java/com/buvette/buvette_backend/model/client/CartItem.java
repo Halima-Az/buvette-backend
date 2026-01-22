@@ -1,8 +1,20 @@
 package com.buvette.buvette_backend.model.client;
 
+import org.springframework.data.annotation.Transient;
+
 public class CartItem {
     private String itemId;
     private int quantity;
+     @Transient // MongoDB ne le sauvegarde pas
+    private String itemName;
+
+    public String getItemName() {
+        return this.itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
 
     public CartItem() {}
 
