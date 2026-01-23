@@ -1,7 +1,6 @@
 package com.buvette.buvette_backend.repository.client;
 
 import java.util.List;
-import java.util.Locale.Category;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 

@@ -1,22 +1,26 @@
 package com.buvette.buvette_backend.controller.client;
 import com.buvette.buvette_backend.dto.OrderRequest;
+import com.buvette.buvette_backend.model.client.User;
 import com.buvette.buvette_backend.model.shared.Order;
 import com.buvette.buvette_backend.repository.shared.UserRepository;
 import com.buvette.buvette_backend.services.shared.OrderService;
 import com.buvette.buvette_backend.services.shared.JwtService;
 
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/client")
+@PreAuthorize("hasRole('CLIENT')")
 public class OrderClientController {
 
     private final OrderService orderService;
     private final UserRepository userRepository;
     private final JwtService jwtService;
 
-    public OrderClientController(OrderService orderService, UserRepository userRepository, JwtService jwtService) {
+    public OrderClientController(OrderService orderService,
+                                 UserRepository userRepository,
+                                 JwtService jwtService) {
         this.orderService = orderService;
         this.userRepository = userRepository;
         this.jwtService = jwtService;
@@ -31,17 +35,11 @@ public class OrderClientController {
         }
 
         String token = authHeader.substring(7);
-
-        // Extract email from JWT
         String email = jwtService.extractEmail(token);
 
-        // Fetch user once
-        var user = userRepository.findByEmail(email)
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Create order with userId and username
-        return orderService.createOrder(user.getId(), user.getUsername(), orderRequest);
+        return orderService.createOrder(user, orderRequest);
     }
-
-   
 }

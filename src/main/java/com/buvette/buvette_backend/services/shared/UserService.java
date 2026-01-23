@@ -1,5 +1,7 @@
 package com.buvette.buvette_backend.services.shared;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,5 +22,8 @@ public class UserService {
     }
     public User findByEmail(String email){
         return repo.findByEmail(email)   .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+    public Optional<User> findByIdUser (String id){
+        return repo.findById(id);
     }
 }

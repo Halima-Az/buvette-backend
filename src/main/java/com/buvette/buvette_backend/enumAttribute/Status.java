@@ -6,6 +6,4 @@ public enum Status {
     READY,
     DELIVERED,
     CANCELLED
-
-
 }

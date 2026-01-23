@@ -24,9 +24,16 @@ public class UserAuthService {
     }
 
     public boolean authenticate(String email, String pass) {
-    return repo.findByEmail(email)
+        return repo.findByEmail(email)
             .map(user -> passwordEncoder.matches(pass, user.getPassword()))
             .orElse(false);
-}
+
+    }
+
+    public String getRoleByEmail(String email) {
+        return repo.findByEmail(email)
+                .map(User::getRole)
+                .orElse(null);
+    }
 
 }

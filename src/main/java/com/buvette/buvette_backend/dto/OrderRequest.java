@@ -4,20 +4,35 @@ import java.util.List;
 
 public class OrderRequest {
 
+    private List<Item> items;
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    // DTO for request only
     public static class Item {
         private String itemId;
         private int quantity;
 
-        // getters & setters
-        public String getItemId() { return itemId; }
-        public void setItemId(String itemId) { this.itemId = itemId; }
-        public int getQuantity() { return quantity; }
-        public void setQuantity(int quantity) { this.quantity = quantity; }
+        public String getItemId() {
+            return itemId;
+        }
+
+        public void setItemId(String itemId) {
+            this.itemId = itemId;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
     }
-
-    private List<Item> items;
-
-    // getters & setters
-    public List<Item> getItems() { return items; }
-    public void setItems(List<Item> items) { this.items = items; }
 }
