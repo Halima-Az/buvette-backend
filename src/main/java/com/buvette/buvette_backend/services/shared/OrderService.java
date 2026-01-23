@@ -1,6 +1,7 @@
 package com.buvette.buvette_backend.services.shared;
 
 import com.buvette.buvette_backend.dto.OrderRequest;
+import com.buvette.buvette_backend.enumAttribute.Status;
 import com.buvette.buvette_backend.model.client.CartItem;
 import com.buvette.buvette_backend.model.client.MenuItem;
 import com.buvette.buvette_backend.model.shared.Order;
@@ -46,4 +47,32 @@ public class OrderService {
 
         return orderRepository.save(order);
     }
+
+    public List<Order> getOrders() {
+
+        List<Order> orders = orderRepository.findAll();
+
+        for (Order order : orders) {
+            for (CartItem cartItem : order.getItems()) {
+
+                MenuItem item = menuItemRepository.findById(cartItem.getItemId())
+                        .orElse(null);
+
+                if (item != null) {
+                    cartItem.setItemName(item.getName());
+                }
+            }
+        }
+
+        return orders;
+    }
+
+   public Order updateStatus(String orderId, Status newStatus) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        order.setStatus(newStatus);
+        return orderRepository.save(order);
+    }
+
 }
