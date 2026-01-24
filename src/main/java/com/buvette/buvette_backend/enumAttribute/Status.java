@@ -5,5 +5,15 @@ public enum Status {
     PREPARING,
     READY,
     DELIVERED,
-    CANCELLED
+    CANCELLED;
+
+    public boolean canTransitionTo(Status next) {
+        return switch (this) {
+            case PENDING -> next == PREPARING || next == CANCELLED;
+            case PREPARING -> next == READY || next == CANCELLED;
+            case READY -> next == DELIVERED;
+            case DELIVERED, CANCELLED -> false;
+        };
+    }
+
 }

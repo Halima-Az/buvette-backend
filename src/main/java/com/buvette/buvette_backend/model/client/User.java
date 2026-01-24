@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import jakarta.validation.constraints.*;
 
@@ -31,6 +32,9 @@ public class User {
     private String dob;
 
     private List<CartItem> cart = new ArrayList<>();
+
+    @Field("notifs")
+    private List<Notification> notifications = new ArrayList<>();
 
     public User() {
     }
@@ -123,6 +127,14 @@ public class User {
 
     public void setCart(List<CartItem> cart) {
         this.cart = cart;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+    
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
     }
 
 }

@@ -31,9 +31,12 @@ public class OrderWorkerController {
         return orderService.getOrders();
     } 
     @PutMapping("/{id}/status")
-    public ResponseEntity<Order>updateOrderStatus(@PathVariable String id, @RequestBody UpdateOrderStatusRequest request){
+    public ResponseEntity<Order> updateOrderStatus(
+        @PathVariable String id,
+        @RequestBody UpdateOrderStatusRequest request) {
 
-        Order order=orderService.updateStatus(id, request.getStatus());
+        Order order = orderService.updateStatus(id, request.getStatus());
         return ResponseEntity.ok(order);
     }
+
 }
