@@ -2,6 +2,7 @@ package com.buvette.buvette_backend.services.shared;
 
 import com.buvette.buvette_backend.config.OrderCodeGenerator;
 import com.buvette.buvette_backend.dto.OrderRequest;
+import com.buvette.buvette_backend.dto.OrderRequest.Item;
 import com.buvette.buvette_backend.enumAttribute.Status;
 import com.buvette.buvette_backend.model.client.CartItem;
 import com.buvette.buvette_backend.model.client.MenuItem;
@@ -141,6 +142,25 @@ public class OrderService {
         notificationService.createNotification(savedOrder.getUserId(), notification);
 
         return savedOrder;
+    }
+
+    public Order getOrderById(String id){
+        Order order =orderRepository.findById(id).orElse(null);
+         for (CartItem item : order.getItems()){
+            MenuItem product = menuItemRepository.findById(item.getItemId()).orElse(null);
+                item.setItemName(product.getName());
+                item.setItemPrice(product.getPrice());
+            }
+          {
+            return order;
+
+          }
+        
+    }
+
+    // list of orders 
+    public List<Order>getOrdersByUser(String id){
+        return orderRepository.findByUserId(id);
     }
 
 }
