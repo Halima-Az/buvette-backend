@@ -7,6 +7,16 @@ public class CartItem {
     private int quantity;
      @Transient // MongoDB ne le sauvegarde pas
     private String itemName;
+    @Transient
+    private double itemPrice;
+
+    public double getItemPrice() {
+        return this.itemPrice;
+    }
+
+    public void setItemPrice(double itemPrice) {
+        this.itemPrice = itemPrice;
+    }
 
     public String getItemName() {
         return this.itemName;
