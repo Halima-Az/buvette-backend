@@ -34,6 +34,7 @@ public class MenuItem {
     public ItemCategory getCategorie() {
         return itemCategory;
     }
+   
     public void setCategorie(ItemCategory categorie) {
         this.itemCategory = categorie;
     }
