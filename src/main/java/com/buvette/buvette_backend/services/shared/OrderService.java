@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -80,6 +81,7 @@ public class OrderService {
         userRepository.save(user);
 
         Notification notf = new Notification();
+        notf.setId(UUID.randomUUID().toString());
         notf.setUserId(user.getId());
         notf.setCreatedAt(LocalDateTime.now());
         notf.setMessage("Your order is created ,Waiting to be confirmed for preparing (Order #"+order.getOrderCode()+")");
@@ -133,6 +135,7 @@ public class OrderService {
         Types type = Types.fromStatus(newStatus);
 
         Notification notification = new Notification();
+        notification.setId(UUID.randomUUID().toString());
         notification.setUserId(savedOrder.getUserId());
         notification.setOrderId(savedOrder.getId());
         notification.setType(type);

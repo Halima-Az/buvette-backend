@@ -15,6 +15,7 @@ public class MenuItem {
     private double rating;
     private ItemCategory itemCategory;
     private String image;
+    private boolean available;
 
     
     public MenuItem() {} // default constructor is required
@@ -40,4 +41,7 @@ public class MenuItem {
     }
     public String getImage() { return image; }
     public void setImage(String image) { this.image = image; }
+
+    public boolean getAvailability(){ return available; }
+    public void setAvailability(boolean state){ this.available = state; };
 }

@@ -4,6 +4,7 @@ package com.buvette.buvette_backend.controller.client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.buvette.buvette_backend.model.client.Notification;
@@ -18,6 +19,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/notifications")
 @CrossOrigin(origins = "http://localhost:5173")
+@PreAuthorize("hasRole('CLIENT')")
 public class NotificationController {
     
     @Autowired

@@ -37,7 +37,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         System.out.println("🔹 Filtre JWT pour : " + path);
 
         // Ignorer auth
-        if (path.startsWith("/auth/")) {
+        if (path.startsWith("/auth/") || path.startsWith("/img/")) {
             filterChain.doFilter(request, response);
             return;
         }

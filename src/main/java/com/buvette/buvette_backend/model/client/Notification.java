@@ -8,9 +8,8 @@ import com.buvette.buvette_backend.enumAttribute.Types;
 
 import java.time.LocalDateTime;
 
-@Document(collection = "notifications")
 public class Notification {
-    @Id
+    
     private String id;
     private String userId;
     private String title;

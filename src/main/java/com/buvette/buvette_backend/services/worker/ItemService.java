@@ -49,4 +49,12 @@ public class ItemService {
     public MenuItem saveItem(MenuItem item) {
         return itemRepository.save(item);
     }
+
+    public MenuItem setAvailability(String id, boolean available) {
+        MenuItem item = itemRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Item not found"));
+
+        item.setAvailability(available);
+        return itemRepository.save(item);
+    }
 }
