@@ -32,3 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 /.apt_generated_tests/
+
+# Ignore images uploaded at runtime
+src/main/resources/static/img/
