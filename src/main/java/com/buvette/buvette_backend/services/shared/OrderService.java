@@ -166,5 +166,46 @@ public class OrderService {
         return orderRepository.findByUserId(id);
     }
 
+    // Update an order (items/quantities)
+    public Order updateOrder(String orderId, Order updatedOrder) throws Exception {
+        Order existingOrder = orderRepository.findById(orderId)
+                .orElseThrow(() -> new Exception("Order not found"));
+
+        if (existingOrder.getStatus() != Status.PENDING) {
+            throw new Exception("Only pending orders can be updated");
+        }
+
+        // Update items
+        existingOrder.setItems(updatedOrder.getItems());
+
+        // Recalculate total
+        double total = existingOrder.getItems().stream()
+                .mapToDouble(i -> i.getQuantity() * i.getItemPrice())
+                .sum();
+        existingOrder.setTotal(total);
+
+        // Auto-cancel if no items left
+        if (existingOrder.getItems().isEmpty()) {
+            existingOrder.setStatus(Status.CANCELLED);
+            existingOrder.setCancelledAt(LocalDateTime.now());
+        }
+
+        return orderRepository.save(existingOrder);
+    }
+
+    // Cancel an order
+    public Order cancelOrder(String orderId) throws Exception {
+        Order existingOrder = orderRepository.findById(orderId)
+                .orElseThrow(() -> new Exception("Order not found"));
+
+        if (existingOrder.getStatus() != Status.PENDING) {
+            throw new Exception("Only pending orders can be cancelled");
+        }
+
+        existingOrder.setStatus(Status.CANCELLED);
+        existingOrder.setCancelledAt(LocalDateTime.now());
+        return orderRepository.save(existingOrder);
+    }
+
 }
 
