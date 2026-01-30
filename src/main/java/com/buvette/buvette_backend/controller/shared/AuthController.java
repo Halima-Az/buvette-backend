@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.buvette.buvette_backend.model.client.User;
 import com.buvette.buvette_backend.services.shared.JwtService;
 import com.buvette.buvette_backend.services.shared.UserAuthService;
+import com.buvette.buvette_backend.services.shared.UserService;
 
 import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
@@ -20,10 +21,12 @@ public class AuthController {
 
     private final UserAuthService service;
     private final JwtService jwtService;
+    private final UserService userService;
 
-    public AuthController(UserAuthService service, JwtService jwtService) {
+    public AuthController(UserAuthService service, JwtService jwtService,UserService userService) {
         this.service = service;
         this.jwtService = jwtService;
+        this.userService = userService;
     }
 
     @PostMapping("/register")
@@ -38,12 +41,14 @@ public class AuthController {
 
         String token = jwtService.generateToken(user.getEmail());
         String role = service.getRoleByEmail(user.getEmail());
+        User curentUser = userService.findByEmail(user.getEmail());
+        String userId = curentUser.getId();
         System.out.println(role+"--------------------------------------------------------");
 
         return ResponseEntity.ok(Map.of(
             "token", token,
-            "role", role
-
+            "role", role,
+            "userId",userId
         ));
     }
 

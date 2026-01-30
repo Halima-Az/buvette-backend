@@ -50,9 +50,9 @@ public class ItemController {
     
     @PutMapping("/menu-items/{id}/availability")
     public MenuItem updateAvailability(@PathVariable String id,
-                                        @RequestParam boolean available ) 
+                                        @RequestParam boolean availability ) 
     {
-        return itemService.setAvailability(id, available);
+        return itemService.setAvailability(id, availability);
     }
 
 }

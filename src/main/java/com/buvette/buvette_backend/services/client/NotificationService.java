@@ -40,6 +40,8 @@ public class NotificationService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return user.getNotifications();
     }
+
+    
     
     public void markAsRead(String userId, String notificationId) {
         User user = userRepository.findById(userId)

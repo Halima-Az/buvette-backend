@@ -15,6 +15,7 @@ import com.buvette.buvette_backend.repository.shared.OrderRepository;
 import com.buvette.buvette_backend.repository.shared.UserRepository;
 import com.buvette.buvette_backend.services.client.NotificationService;
 
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,15 +31,19 @@ public class OrderService {
     private final MenuItemRepository menuItemRepository;
     private final UserRepository userRepository;
     private final NotificationService notificationService;
+    private final SimpMessagingTemplate messagingTemplate;
+
 
     public OrderService(OrderRepository orderRepository,
                         MenuItemRepository menuItemRepository,
                         UserRepository userRepository,
-                        NotificationService notificationService) {
+                        NotificationService notificationService,
+                        SimpMessagingTemplate messagingTemplate) {
         this.orderRepository = orderRepository;
         this.menuItemRepository = menuItemRepository;
         this.userRepository = userRepository;
         this.notificationService = notificationService;
+        this.messagingTemplate = messagingTemplate;
     }
 
     @Transactional
@@ -89,6 +94,11 @@ public class OrderService {
         notf.setType(Types.ORDER_PENDING);
 
         notificationService.createNotification(user.getId(), notf );
+
+        // Notifier les workers (TEMPS RÉEL)
+        messagingTemplate.convertAndSend(
+                "/topic/notifications/"+notf.getUserId(),
+                notf);
 
         return savedOrder;
     }
@@ -143,6 +153,11 @@ public class OrderService {
         notification.setMessage(type.buildMessage(savedOrder.getOrderCode()));
 
         notificationService.createNotification(savedOrder.getUserId(), notification);
+
+        // Notifier les workers (TEMPS RÉEL)
+        messagingTemplate.convertAndSend(
+                "/topic/notifications/"+notification.getUserId(),
+                notification);
 
         return savedOrder;
     }
