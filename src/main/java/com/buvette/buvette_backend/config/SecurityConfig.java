@@ -25,7 +25,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable()) // Désactive CSRF pour POST depuis le frontend
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/auth/**","/ws/**").permitAll()
                         .requestMatchers("/img/**").permitAll()
                         .requestMatchers("/api/**").permitAll() // <-- allow menu for Vue
                         .requestMatchers("/admin/**").hasRole("ADMIN")
