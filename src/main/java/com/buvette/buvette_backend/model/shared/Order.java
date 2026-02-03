@@ -26,7 +26,7 @@ public class Order {
     private LocalDateTime cancelledAt;     // When cancelled
     private String workerId;               // Who processed the order
     
-    @Indexed(unique = true)
+    @Indexed(unique = true, sparse=true)
     private String orderCode;
 
     // Constructors, getters, and setters
