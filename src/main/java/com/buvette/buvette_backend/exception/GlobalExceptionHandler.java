@@ -6,6 +6,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import org.springframework.dao.DuplicateKeyException;
+
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +23,22 @@ public class GlobalExceptionHandler {
             errors.put(error.getField(), error.getDefaultMessage());
         });
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DuplicateKeyException.class)
+    public ResponseEntity<Map<String, String>> handleDuplicate(DuplicateKeyException ex) {
+
+        Map<String, String> errors = new HashMap<>();
+
+        if (ex.getMessage().contains("email")) {
+            errors.put("email", "Email already exists");
+        }
+
+        if (ex.getMessage().contains("username")) {
+            errors.put("username", "Username already exists");
+        }
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errors);
     }
 
 }

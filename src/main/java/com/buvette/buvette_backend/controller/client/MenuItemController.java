@@ -23,6 +23,7 @@ public class MenuItemController {
 
     @GetMapping("/menu")
     public List<MenuItem> getMenu() {
+        System.out.println("\n hi \n");
         return menuItemRepository.findAll();
     }
 

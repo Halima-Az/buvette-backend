@@ -34,4 +34,4 @@ build/
 /.apt_generated_tests/
 
 # Ignore images uploaded at runtime
-src/main/resources/static/img/
+src/main/resources/static/images/

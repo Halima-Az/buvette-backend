@@ -1,9 +1,11 @@
 package com.buvette.buvette_backend.model.client;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -14,9 +16,11 @@ public class User {
     @Id
     private String id;
     @NotBlank(message = "username required")
+    @Indexed(unique=true)
     private String username;
     @Email(message = "invalide email")
     @NotBlank(message = "Email required")
+    @Indexed(unique=true)
     private String email;
     @NotBlank(message = "password required")
     @Size(min = 8, message = "passort must at least 8 characters")
@@ -35,6 +39,20 @@ public class User {
 
     @Field("notifs")
     private List<Notification> notifications = new ArrayList<>();
+
+    private LocalDateTime lastPasswordChange;
+
+    public Boolean isAgreeTerms() {
+        return this.agreeTerms;
+    }
+
+    public LocalDateTime getLastPasswordChange() {
+        return this.lastPasswordChange;
+    }
+
+    public void setLastPasswordChange(LocalDateTime lastPasswordChange) {
+        this.lastPasswordChange = lastPasswordChange;
+    }
 
     public User() {
     }
