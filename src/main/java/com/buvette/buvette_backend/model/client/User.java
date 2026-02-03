@@ -1,5 +1,6 @@
 package com.buvette.buvette_backend.model.client;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +36,20 @@ public class User {
 
     @Field("notifs")
     private List<Notification> notifications = new ArrayList<>();
+
+    private LocalDateTime lastPasswordChange;
+
+    public Boolean isAgreeTerms() {
+        return this.agreeTerms;
+    }
+
+    public LocalDateTime getLastPasswordChange() {
+        return this.lastPasswordChange;
+    }
+
+    public void setLastPasswordChange(LocalDateTime lastPasswordChange) {
+        this.lastPasswordChange = lastPasswordChange;
+    }
 
     public User() {
     }
