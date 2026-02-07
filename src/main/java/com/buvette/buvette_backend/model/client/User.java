@@ -16,11 +16,11 @@ public class User {
     @Id
     private String id;
     @NotBlank(message = "username required")
-    @Indexed(unique=true)
+    @Indexed(unique = true)
     private String username;
     @Email(message = "invalide email")
     @NotBlank(message = "Email required")
-    @Indexed(unique=true)
+    @Indexed(unique = true)
     private String email;
     @NotBlank(message = "password required")
     @Size(min = 8, message = "passort must at least 8 characters")
@@ -42,6 +42,25 @@ public class User {
 
     private LocalDateTime lastPasswordChange;
 
+    private String resetPasswordToken;
+    private LocalDateTime resetPasswordExpiry;
+
+    public String getResetPasswordToken() {
+        return this.resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
+    }
+
+    public LocalDateTime getResetPasswordExpiry() {
+        return this.resetPasswordExpiry;
+    }
+
+    public void setResetPasswordExpiry(LocalDateTime resetPasswordExpiry) {
+        this.resetPasswordExpiry = resetPasswordExpiry;
+    }
+
     public Boolean isAgreeTerms() {
         return this.agreeTerms;
     }
@@ -62,7 +81,8 @@ public class User {
         this.email = email;
         this.password = password;
     }
-     public User(String email, String role) {
+
+    public User(String email, String role) {
         this.email = email;
         this.role = role;
     }
@@ -150,7 +170,7 @@ public class User {
     public List<Notification> getNotifications() {
         return notifications;
     }
-    
+
     public void setNotifications(List<Notification> notifications) {
         this.notifications = notifications;
     }
