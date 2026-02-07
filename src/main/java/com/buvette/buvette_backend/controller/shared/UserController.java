@@ -2,7 +2,6 @@ package com.buvette.buvette_backend.controller.shared;
 
 import org.springframework.security.core.Authentication;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
@@ -69,5 +68,8 @@ public class UserController {
         return ResponseEntity.ok(
                 Map.of("lastPasswordChange", user.getLastPasswordChange()));
     }
+
+
+
 
 }
