@@ -35,6 +35,9 @@ public class User {
     private String lname;
     private String dob;
 
+
+    private String codeMassar ;
+
     private List<CartItem> cart = new ArrayList<>();
 
     @Field("notifs")
@@ -173,6 +176,22 @@ public class User {
 
     public void setNotifications(List<Notification> notifications) {
         this.notifications = notifications;
+    }
+    
+    public String getCodeMassar() {
+        return codeMassar;
+    }
+
+    public void setCodeMassar(String codeMassar) {
+        this.codeMassar = codeMassar;
+    }
+
+    @AssertTrue(message = "Code Massar is required for clients")
+    public boolean isCodeMassarValidForRole() {
+        if ("ROLE_CLIENT".equals(this.role)) {
+            return codeMassar != null && !codeMassar.trim().isEmpty();
+        }
+        return true; // workers are allowed to not have it
     }
 
 }

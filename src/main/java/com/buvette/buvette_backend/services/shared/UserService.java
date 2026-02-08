@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.buvette.buvette_backend.dto.UpdateProfileRequest;
 import com.buvette.buvette_backend.model.client.User;
 import com.buvette.buvette_backend.repository.shared.UserRepository;
 
@@ -72,5 +73,23 @@ public class UserService {
         repo.save(user);
 
     }
+
+    public User updateProfile(String email, UpdateProfileRequest request) {
+
+    User user = repo.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+    // username uniqueness check
+    if (!user.getUsername().equals(request.getUsername())
+            && repo.existsByUsername(request.getUsername())) {
+        throw new RuntimeException("Username already taken");
+    }
+
+    user.setUsername(request.getUsername());
+    user.setDob(request.getDob());
+
+    return repo.save(user);
+}
+
 
 }

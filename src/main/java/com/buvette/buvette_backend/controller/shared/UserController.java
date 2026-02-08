@@ -9,14 +9,17 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.buvette.buvette_backend.dto.ChangePasswordRequest;
+import com.buvette.buvette_backend.dto.UpdateProfileRequest;
 import com.buvette.buvette_backend.model.client.User;
 import com.buvette.buvette_backend.services.shared.JwtService;
 import com.buvette.buvette_backend.services.shared.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
@@ -69,7 +72,18 @@ public class UserController {
                 Map.of("lastPasswordChange", user.getLastPasswordChange()));
     }
 
+    @PutMapping("/user/updateprofile")
+    public ResponseEntity<?> updateProfile(
+            @Valid @RequestBody UpdateProfileRequest request,
+            Authentication authentication
+    ) {
+        String email = authentication.getName(); // from JWT
 
+        User updatedUser = service.updateProfile(email, request);
 
+        return ResponseEntity.ok(
+            Map.of("user", updatedUser)
+        );
+    }
 
 }
