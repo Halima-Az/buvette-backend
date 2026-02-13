@@ -19,7 +19,7 @@ public class UserService {
     private UserRepository repo;
     @Autowired
     private PasswordEncoder pass;
-
+ 
     public void engister(User u) {
         u.setPassword(pass.encode(u.getPassword()));
         repo.save(u);
@@ -29,7 +29,8 @@ public class UserService {
     public User findByEmail(String email) {
         return repo.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
     }
-     public User getUserByEmail(String email) {
+
+    public User getUserByEmail(String email) {
         return repo.findByEmail(email).orElse(null);
     }
 
@@ -50,11 +51,13 @@ public class UserService {
         return true;
     }
 
-    public void save(User user){
+    public void save(User user) {
         repo.save(user);
     }
 
-    public void resetPassword(String token,String newPassword){
+    
+
+    public void resetPassword(String token, String newPassword) {
         User user = repo.findByResetPasswordToken(token)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "address email not found"));
 
@@ -76,20 +79,19 @@ public class UserService {
 
     public User updateProfile(String email, UpdateProfileRequest request) {
 
-    User user = repo.findByEmail(email)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = repo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-    // username uniqueness check
-    if (!user.getUsername().equals(request.getUsername())
-            && repo.existsByUsername(request.getUsername())) {
-        throw new RuntimeException("Username already taken");
+        // username uniqueness check
+        if (!user.getUsername().equals(request.getUsername())
+                && repo.existsByUsername(request.getUsername())) {
+            throw new RuntimeException("Username already taken");
+        }
+
+        user.setUsername(request.getUsername());
+        user.setDob(request.getDob());
+
+        return repo.save(user);
     }
-
-    user.setUsername(request.getUsername());
-    user.setDob(request.getDob());
-
-    return repo.save(user);
-}
-
 
 }

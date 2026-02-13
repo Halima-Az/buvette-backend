@@ -35,8 +35,7 @@ public class User {
     private String lname;
     private String dob;
 
-
-    private String codeMassar ;
+    private String codeMassar;
 
     private List<CartItem> cart = new ArrayList<>();
 
@@ -47,6 +46,30 @@ public class User {
 
     private String resetPasswordToken;
     private LocalDateTime resetPasswordExpiry;
+
+    // verifier email in register
+    private boolean emailVerified = false;
+    private String verificationToken;
+
+    public boolean isEmailVerified() {
+        return this.emailVerified;
+    }
+
+    public boolean getEmailVerified() {
+        return this.emailVerified;
+    }
+
+    public void setEmailVerified(boolean emailVerified) {
+        this.emailVerified = emailVerified;
+    }
+
+    public String getVerificationToken() {
+        return this.verificationToken;
+    }
+
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
+    }
 
     public String getResetPasswordToken() {
         return this.resetPasswordToken;
@@ -177,7 +200,7 @@ public class User {
     public void setNotifications(List<Notification> notifications) {
         this.notifications = notifications;
     }
-    
+
     public String getCodeMassar() {
         return codeMassar;
     }

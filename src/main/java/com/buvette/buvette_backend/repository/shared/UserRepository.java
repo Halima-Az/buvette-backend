@@ -19,4 +19,5 @@ public interface UserRepository extends MongoRepository<User, String> {
     Optional<User> findByResetPasswordToken(String token);
 
     boolean existsByUsername(String username);
+    User findByVerificationToken(String token);
 }
