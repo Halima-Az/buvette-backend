@@ -2,7 +2,6 @@ package com.buvette.buvette_backend.services.shared;
 
 import com.buvette.buvette_backend.config.OrderCodeGenerator;
 import com.buvette.buvette_backend.dto.OrderRequest;
-import com.buvette.buvette_backend.dto.OrderRequest.Item;
 import com.buvette.buvette_backend.enumAttribute.Status;
 import com.buvette.buvette_backend.model.client.CartItem;
 import com.buvette.buvette_backend.model.client.MenuItem;
@@ -221,6 +220,9 @@ public class OrderService {
         existingOrder.setCancelledAt(LocalDateTime.now());
         return orderRepository.save(existingOrder);
     }
+
+
+  
 
 }
 

@@ -24,11 +24,22 @@ public class EmailService {
        public void sendVerifiedPasswordEmail(String to, String link) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
-        message.setSubject("Verify of your SnackUp account");
+        message.setSubject("Verify your SnackUp account");
         message.setText(
             "Please click the link below to verify your account:\n" + link
         );
 
         mailSender.send(message);
+    }
+    public void acceptWorkerRequest(String firstName,String to, String link) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject("Request SnackUp approved");
+        message.setText(
+            "Congratulations "+ firstName + " , your request approved \n \n"+
+            "Please click the link below to verify your account:\n" + link
+        );
+
+        mailSender.send(message); 
     }
 }
