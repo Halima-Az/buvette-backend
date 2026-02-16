@@ -23,19 +23,23 @@ public class AuthController {
     private final UserAuthService service;
     private final JwtService jwtService;
     private final UserService userService;
-    private final EmailService emailService;
 
     public AuthController(UserAuthService service, JwtService jwtService,
             UserService userService, EmailService emailService) {
         this.service = service;
         this.jwtService = jwtService;
         this.userService = userService;
-        this.emailService = emailService;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/registerAsClient")
     public ResponseEntity<?> registerUser(@Valid @RequestBody User user) {
         service.sendVerificationEmail(user);
+        return ResponseEntity.ok("Utilisateur créé !");
+    }
+
+    @PostMapping("/registerAsWorker")
+    public ResponseEntity<?> registerWorker(@Valid @RequestBody User user) {
+        service.sendRequestToAdmin(user);
         return ResponseEntity.ok("Utilisateur créé !");
     }
 
@@ -62,6 +66,10 @@ public class AuthController {
 
         if (result.equals("EMAIL_NOT_FOUND")) {
             return ResponseEntity.status(404).body("Email not found.");
+        }
+
+        if(result.equals("DISABLED_ACCOUNT")){
+            return ResponseEntity.status(400).body("Your account is disabled !");
         }
 
         return ResponseEntity.status(401).body("Incorrect password.");

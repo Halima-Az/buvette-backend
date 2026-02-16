@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.buvette.buvette_backend.enumAttribute.RequestOrderStatus;
+import com.buvette.buvette_backend.enumAttribute.UserStatus;
 import com.buvette.buvette_backend.model.client.User;
+import com.buvette.buvette_backend.model.worker.RequestRegister;
 import com.buvette.buvette_backend.repository.shared.UserRepository;
+import com.buvette.buvette_backend.repository.worker.RequestWorkerRepository;
 
 @Service
 public class UserAuthService {
@@ -18,6 +22,8 @@ public class UserAuthService {
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private RequestWorkerRepository requestWorker;
 
     public UserAuthService(UserRepository repo) {
         this.repo = repo;
@@ -35,6 +41,21 @@ public class UserAuthService {
         repo.save(user);
         String link = "http://localhost:5173/verify?token=" + token;
         emailService.sendVerifiedPasswordEmail(user.getEmail(), link);
+
+    }
+    public void sendRequestToAdmin(User user) {
+        if(!repo.existsByUsername(user.getUsername() )&& !repo.existsByEmail(user.getEmail()  )){   
+        RequestRegister request= new RequestRegister(user.getFname(),
+                                                     user.getLname(),
+                                                     user.getEmail(),
+                                                    RequestOrderStatus.PENDING,
+                                                    LocalDateTime.now());
+        user.setPassword(passwordEncoder.encode(user.getPassword())); 
+        user.setStatus(UserStatus.DISABLED);                                           
+        requestWorker.save(request);
+        repo.save(user);
+
+        }
 
     }
 
@@ -66,6 +87,9 @@ public class UserAuthService {
 
         if (!passwordEncoder.matches(pass, user.getPassword())) {
             return "BAD_PASSWORD";
+        }
+        if(user.getStatus()== UserStatus.DISABLED){
+            return "DISABLED_ACCOUNT";
         }
 
         return "SUCCESS";

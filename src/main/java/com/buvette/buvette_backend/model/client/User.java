@@ -9,6 +9,8 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import com.buvette.buvette_backend.enumAttribute.UserStatus;
+
 import jakarta.validation.constraints.*;
 
 @Document(collection = "users")
@@ -51,6 +53,16 @@ public class User {
     private boolean emailVerified = false;
     private String verificationToken;
 
+    // account status
+    private UserStatus status;
+
+    public UserStatus getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
+    }
     public boolean isEmailVerified() {
         return this.emailVerified;
     }
