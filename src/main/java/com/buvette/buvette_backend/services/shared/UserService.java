@@ -107,11 +107,10 @@ public class UserService {
 
     // Unblock a user
     public User unblockUser(String id) {
-        public User activateUser(String id) {
-    User user = repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        user.setStatus(UserStatus.ACTIVE);
-        return repo.save(user);
+        User user = repo.findById(id)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+            user.setStatus(UserStatus.ACTIVE);
+            return repo.save(user);
     }
 
     // Delete a user

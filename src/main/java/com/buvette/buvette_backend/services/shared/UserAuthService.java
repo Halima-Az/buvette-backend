@@ -92,10 +92,6 @@ public class UserAuthService {
             return "DISABLED_ACCOUNT";
         }
 
-        if (user.getStatus() == "BLOCKED"){
-            return "ACCOUNT_BLOCKED";
-        }
-
         return "SUCCESS";
     }
 
