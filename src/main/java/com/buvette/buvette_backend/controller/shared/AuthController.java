@@ -67,10 +67,11 @@ public class AuthController {
         if (result.equals("EMAIL_NOT_FOUND")) {
             return ResponseEntity.status(404).body("Email not found.");
         }
-
         if(result.equals("DISABLED_ACCOUNT")){
             return ResponseEntity.status(400).body("Your account is disabled !");
         }
+
+        
 
         return ResponseEntity.status(401).body("Incorrect password.");
     }

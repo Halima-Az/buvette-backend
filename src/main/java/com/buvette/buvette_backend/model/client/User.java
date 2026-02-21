@@ -53,6 +53,7 @@ public class User {
     private boolean emailVerified = false;
     private String verificationToken;
 
+
     // account status
     private UserStatus status;
 

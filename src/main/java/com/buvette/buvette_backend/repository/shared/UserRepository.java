@@ -1,5 +1,6 @@
 package com.buvette.buvette_backend.repository.shared;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -10,7 +11,7 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     Optional<User> findByEmail(String email);
 
-    Optional<User> findById(String id);
+    Optional<User> findById(Long id);
 
     String findRoleByEmail(String email);
 
@@ -21,4 +22,6 @@ public interface UserRepository extends MongoRepository<User, String> {
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
     User findByVerificationToken(String token);
+
+    List<User> findByEmailNot(String email);
 }
