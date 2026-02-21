@@ -1,6 +1,7 @@
 package com.buvette.buvette_backend.services.shared;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.buvette.buvette_backend.dto.UpdateProfileRequest;
+import com.buvette.buvette_backend.dto.UserAdminDTO;
 import com.buvette.buvette_backend.model.client.User;
 import com.buvette.buvette_backend.repository.shared.UserRepository;
 
@@ -94,4 +96,57 @@ public class UserService {
         return repo.save(user);
     }
 
+    // Block a user
+    public User blockUser(String id) {
+        User user = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        user.setStatus("BLOCKED");
+        return repo.save(user);
+    }
+
+    // Unblock a user
+    public User unblockUser(String id) {
+        User user = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        user.setStatus("ACTIVE");   // was "active"
+        return repo.save(user);
+    }
+
+    // Delete a user
+    public void deleteUser(String id) {
+        repo.deleteById(id);
+    }
+
+    // Add a new user
+    public User addUser(User user) {
+        user.setPassword(pass.encode(user.getPassword()));
+        return repo.save(user);
+    }
+
+    public List<UserAdminDTO> getAllUsers() {
+        return repo.findAll()
+                .stream()
+                .map(this::toDTO)
+                .toList();
+    }
+
+    public List<UserAdminDTO> getAllUsers(String currentEmail) {
+        return repo.findByEmailNot(currentEmail)
+                .stream()
+                .map(this::toDTO)
+                .toList();
+    }
+
+    private UserAdminDTO toDTO(User user) {
+        UserAdminDTO dto = new UserAdminDTO();
+        dto.setId(user.getId());
+        dto.setUsername(user.getUsername());
+        dto.setEmail(user.getEmail());
+        dto.setRole(user.getRole());
+        dto.setStatus(user.getStatus());
+        dto.setEmailVerified(user.getEmailVerified());
+        return dto;
+    }
+
+    
 }

@@ -51,6 +51,12 @@ public class User {
     private boolean emailVerified = false;
     private String verificationToken;
 
+    private String status = "ACTIVE"; // ACTIVE, BLOCKED, INACTIVE
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
+
     public boolean isEmailVerified() {
         return this.emailVerified;
     }

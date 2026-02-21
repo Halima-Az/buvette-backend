@@ -64,6 +64,10 @@ public class AuthController {
             return ResponseEntity.status(404).body("Email not found.");
         }
 
+        if (result.equals("BLOCKED")) {
+            return ResponseEntity.status(404).body("Account is blocked ! Please contact ur administration.");
+        }
+
         return ResponseEntity.status(401).body("Incorrect password.");
     }
 

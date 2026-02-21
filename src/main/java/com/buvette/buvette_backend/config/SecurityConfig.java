@@ -28,7 +28,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**","/ws/**").permitAll()
                         .requestMatchers("/img/**").permitAll()
                         .requestMatchers("/api/**").permitAll() // <-- allow menu for Vue
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/**").permitAll() // temp
                         .requestMatchers("/client/**").hasRole("CLIENT")
                         .requestMatchers("/worker/**").hasRole("WORKER")
                         .anyRequest().authenticated())

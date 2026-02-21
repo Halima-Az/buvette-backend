@@ -68,6 +68,10 @@ public class UserAuthService {
             return "BAD_PASSWORD";
         }
 
+        if (user.getStatus() == "BLOCKED"){
+            return "ACCOUNT_BLOCKED";
+        }
+
         return "SUCCESS";
     }
 
