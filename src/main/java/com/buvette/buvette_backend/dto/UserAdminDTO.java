@@ -1,12 +1,15 @@
 package com.buvette.buvette_backend.dto;
 
+import com.buvette.buvette_backend.enumAttribute.UserStatus;
+
 public class UserAdminDTO {
 
     private String id;
     private String username;
     private String email;
     private String role;
-    private String status;
+    private UserStatus status;
+    
     private Boolean emailVerified;
     
     public String getId() {
@@ -33,10 +36,10 @@ public class UserAdminDTO {
     public void setRole(String role) {
         this.role = role;
     }
-    public String getStatus() {
+    public UserStatus getStatus() {
         return status;
     }
-    public void setStatus(String status) {
+    public void setStatus(UserStatus status) {
         this.status = status;
     }
     public Boolean getEmailVerified() {

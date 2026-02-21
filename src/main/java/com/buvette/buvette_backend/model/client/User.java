@@ -55,10 +55,10 @@ public class User {
 
 
     // account status
-    private UserStatus status;
+    private UserStatus status = UserStatus.ACTIVE; // default
 
     public UserStatus getStatus() {
-        return this.status;
+        return status;
     }
 
     public void setStatus(UserStatus status) {

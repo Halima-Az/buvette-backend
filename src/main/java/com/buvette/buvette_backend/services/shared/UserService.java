@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.buvette.buvette_backend.dto.UpdateProfileRequest;
 import com.buvette.buvette_backend.dto.UserAdminDTO;
+import com.buvette.buvette_backend.enumAttribute.UserStatus;
 import com.buvette.buvette_backend.model.client.User;
 import com.buvette.buvette_backend.repository.shared.UserRepository;
 
@@ -100,15 +101,16 @@ public class UserService {
     public User blockUser(String id) {
         User user = repo.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        user.setStatus("BLOCKED");
+        user.setStatus(UserStatus.DISABLED);
         return repo.save(user);
     }
 
     // Unblock a user
     public User unblockUser(String id) {
-        User user = repo.findById(id)
+        public User activateUser(String id) {
+    User user = repo.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        user.setStatus("ACTIVE");   // was "active"
+        user.setStatus(UserStatus.ACTIVE);
         return repo.save(user);
     }
 
